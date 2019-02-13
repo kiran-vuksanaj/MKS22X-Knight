@@ -11,6 +11,12 @@ public class KnightBoard{
     {2,1},
     {1,2}
   };
+
+  public static void main(String[] args){
+    KnightBoard kb = new KnightBoard(5,5);
+    System.out.println(kb.solve(0,0));
+  }
+
   public KnightBoard(int startingRows,int startingCols){
     if(startingRows <= 0 || startingCols <= 0) throw new IllegalArgumentException("negative row/col");
     pubBoard = new int[startingRows][startingCols];
