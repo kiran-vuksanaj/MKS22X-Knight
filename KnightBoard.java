@@ -1,6 +1,16 @@
 public class KnightBoard{
   private int[][] pubBoard;
   private int stepsNecessary;
+  private static int[][] moveStatic = {
+    {-1,2},
+    {-2,1},
+    {-2,-1},
+    {-1,-2},
+    {1,-2},
+    {2,-1},
+    {2,1},
+    {1,2}
+  };
   public KnightBoard(int startingRows,int startingCols){
     if(startingRows <= 0 || startingCols <= 0) throw new IllegalArgumentException("negative row/col");
     pubBoard = new int[startingRows][startingCols];
@@ -28,9 +38,20 @@ public class KnightBoard{
       pubBoard[row][col] = step;
       return true;
     }else{
-      //GENERATE LIST OF POTENTIAL MOVES (only -1)
+      pubBoard[row][col] = step;
+      for(int i=0;i<moveStatic.length;i++){
+        int rowTry = row + moveStatic[i][0];
+        int colTry = row + moveStatic[i][1];
+        if(rowTry >= 0 && rowTry < pubBoard.length &&
+           colTry >= 0 && colTry < pubBoard[rowTry].length &&
+           pubBoard[rowTry][colTry] != -1 &&
+           solver(rowTry,colTry,step+1)){
+             return true;
+           }
+      }
       //CYCLE THROUGH MOVES, RECURSING DOWN
       //IF NOT RETURNED, REMOVE SELF, AND RETURN FALSE
+      pubBoard[row][col] = -1;
       return false;
     }
   }
