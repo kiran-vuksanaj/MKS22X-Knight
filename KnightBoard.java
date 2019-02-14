@@ -12,7 +12,7 @@ public class KnightBoard{
     {1,2}
   };
 
-  public static void main(String[] args)throws InterruptedException{
+  public static void main(String[] args){
     KnightBoard kb = new KnightBoard(5,5);
     System.out.println(kb.solve(0,0));
   }
@@ -33,24 +33,26 @@ public class KnightBoard{
     return "";
   }
 
-  public boolean solve(int startingRow,int startingCol)throws InterruptedException{
+  public boolean solve(int startingRow,int startingCol){
+    showBoard();
     if(startingRow < 0 || startingCol < 0 ||
        startingRow >= pubBoard.length || startingCol >= pubBoard[0].length)
        throw new IllegalArgumentException("row/col out of bounds");
     return solver(startingRow,startingCol,0);
   }
-  private boolean solver(int row,int col,int step)throws InterruptedException{
-    Thread.sleep(500);
-    for(int i=0;i<step;i++) System.out.print("  ");
-    System.out.println("solver("+row+","+col+","+step+")");
+  private boolean solver(int row,int col,int step){
+    Text.wait(500);
+    //System.out.println(row+","+col+","+step);
     if(step == stepsNecessary){
       pubBoard[row][col] = step;
+      resetBoard();
       return true;
     }else{
       pubBoard[row][col] = step;
+      updateBoard(row,col,step,false);
       for(int i=0;i<moveStatic.length;i++){
         int rowTry = row + moveStatic[i][0];
-        int colTry = row + moveStatic[i][1];
+        int colTry = col + moveStatic[i][1];
         if(rowTry >= 0 && rowTry < pubBoard.length &&
            colTry >= 0 && colTry < pubBoard[rowTry].length &&
            pubBoard[rowTry][colTry] == -1 &&
@@ -61,6 +63,7 @@ public class KnightBoard{
       //CYCLE THROUGH MOVES, RECURSING DOWN
       //IF NOT RETURNED, REMOVE SELF, AND RETURN FALSE
       pubBoard[row][col] = -1;
+      //updateBoard(row,col,step,true);
       return false;
     }
   }
@@ -70,5 +73,18 @@ public class KnightBoard{
        startingRow >= pubBoard.length || startingCol >= pubBoard[0].length)
        throw new IllegalArgumentException("row/col out of bounds");
     return -1;
+  }
+
+  private void showBoard(){//only use when empty
+    System.out.println(Text.CLEAR_SCREEN);
+    System.out.println(Text.HIDE_CURSOR);
+  }
+  private void resetBoard(){
+    System.out.println(Text.RESET);
+  }
+  private void updateBoard(int r,int c,int step,boolean clear){
+    System.out.println(Text.go(step,40)+r+","+c);
+    System.out.println(Text.go(r,c)+step);
+    if(clear) System.out.println(Text.go(r,c)+" ");
   }
 }
