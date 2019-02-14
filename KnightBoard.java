@@ -12,7 +12,7 @@ public class KnightBoard{
     {1,2}
   };
 
-  public static void main(String[] args){
+  public static void main(String[] args)throws InterruptedException{
     KnightBoard kb = new KnightBoard(5,5);
     System.out.println(kb.solve(0,0));
   }
@@ -33,13 +33,16 @@ public class KnightBoard{
     return "";
   }
 
-  public boolean solve(int startingRow,int startingCol){
+  public boolean solve(int startingRow,int startingCol)throws InterruptedException{
     if(startingRow < 0 || startingCol < 0 ||
        startingRow >= pubBoard.length || startingCol >= pubBoard[0].length)
        throw new IllegalArgumentException("row/col out of bounds");
     return solver(startingRow,startingCol,0);
   }
-  private boolean solver(int row,int col,int step){
+  private boolean solver(int row,int col,int step)throws InterruptedException{
+    Thread.sleep(500);
+    for(int i=0;i<step;i++) System.out.print("  ");
+    System.out.println("solver("+row+","+col+","+step+")");
     if(step == stepsNecessary){
       pubBoard[row][col] = step;
       return true;
@@ -50,7 +53,7 @@ public class KnightBoard{
         int colTry = row + moveStatic[i][1];
         if(rowTry >= 0 && rowTry < pubBoard.length &&
            colTry >= 0 && colTry < pubBoard[rowTry].length &&
-           pubBoard[rowTry][colTry] != -1 &&
+           pubBoard[rowTry][colTry] == -1 &&
            solver(rowTry,colTry,step+1)){
              return true;
            }
