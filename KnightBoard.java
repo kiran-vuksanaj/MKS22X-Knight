@@ -15,6 +15,7 @@ public class KnightBoard{
   public static void main(String[] args){
     KnightBoard kb = new KnightBoard(5,5);
     System.out.println(kb.solve(0,0));
+    System.out.println(kb.toString());
   }
 
   public KnightBoard(int startingRows,int startingCols){
@@ -30,7 +31,20 @@ public class KnightBoard{
   }
 
   public String toString(){
-    return "";
+    String out = "";
+    for(int[] row : pubBoard){
+      for(int cell : row){
+        if(cell==-1){//will only be used during testing;
+          out += "   ";
+        }else if(cell<10){
+          out += " "+cell+" ";
+        }else{
+          out += cell+" ";
+        }
+      }
+      out += "\n";
+    }
+    return out;
   }
 
   public boolean solve(int startingRow,int startingCol){
@@ -41,15 +55,13 @@ public class KnightBoard{
     return solver(startingRow,startingCol,0);
   }
   private boolean solver(int row,int col,int step){
-    Text.wait(500);
-    //System.out.println(row+","+col+","+step);
+    System.out.println(Text.go(0,0)+toString());
     if(step == stepsNecessary){
       pubBoard[row][col] = step;
       resetBoard();
       return true;
     }else{
       pubBoard[row][col] = step;
-      updateBoard(row,col,step,false);
       for(int i=0;i<moveStatic.length;i++){
         int rowTry = row + moveStatic[i][0];
         int colTry = col + moveStatic[i][1];
@@ -81,10 +93,5 @@ public class KnightBoard{
   }
   private void resetBoard(){
     System.out.println(Text.RESET);
-  }
-  private void updateBoard(int r,int c,int step,boolean clear){
-    System.out.println(Text.go(step,40)+r+","+c);
-    System.out.println(Text.go(r,c)+step);
-    if(clear) System.out.println(Text.go(r,c)+" ");
   }
 }
