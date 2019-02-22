@@ -48,17 +48,17 @@ public class KnightBoard{
   }
 
   public boolean solve(int startingRow,int startingCol){
-    showBoard();
+    //showBoard();
     if(startingRow < 0 || startingCol < 0 ||
        startingRow >= pubBoard.length || startingCol >= pubBoard[0].length)
        throw new IllegalArgumentException("row/col out of bounds");
     return solver(startingRow,startingCol,0);
   }
   private boolean solver(int row,int col,int step){
-    System.out.println(Text.go(0,0)+toString());
+    //System.out.println(Text.go(0,0)+toString());
     if(step == stepsNecessary){
       pubBoard[row][col] = step;
-      resetBoard();
+      //resetBoard();
       return true;
     }else{
       pubBoard[row][col] = step;
