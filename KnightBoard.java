@@ -37,9 +37,9 @@ public class KnightBoard{
         if(cell==-1){//will only be used during testing;
           out += "   ";
         }else if(cell<10){
-          out += " "+cell+" ";
+          out += " "+(cell+1)+" ";
         }else{
-          out += cell+" ";
+          out += (cell+1)+" ";
         }
       }
       out += "\n";
