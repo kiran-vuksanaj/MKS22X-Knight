@@ -57,6 +57,7 @@ public class KnightBoard{
   private boolean solver(int row,int col,int step){
     //System.out.println(Text.go(0,0)+toString());
     if(step == stepsNecessary){
+      //BASE CASE; BOARD IS FULL, SUCCESSFUL SOLVE
       pubBoard[row][col] = step;
       //resetBoard();
       return true;
@@ -65,19 +66,24 @@ public class KnightBoard{
       for(int i=0;i<moveStatic.length;i++){
         int rowTry = row + moveStatic[i][0];
         int colTry = col + moveStatic[i][1];
-        if(rowTry >= 0 && rowTry < pubBoard.length &&
-           colTry >= 0 && colTry < pubBoard[rowTry].length &&
-           pubBoard[rowTry][colTry] == -1 &&
-           solver(rowTry,colTry,step+1)){
-             return true;
-           }
+        if(isAValidEmptySpace(rowTry,colTry) && solver(rowTry,colTry,step+1)){
+          //recursion down, this if statement succeeds when space is valid, empty, and successfully solves
+          //circuit break using && so solver only runs on valid spaces
+          return true;
+        }
       }
-      //CYCLE THROUGH MOVES, RECURSING DOWN
-      //IF NOT RETURNED, REMOVE SELF, AND RETURN FALSE
+      //IF NOT RETURNS TRUE, REMOVE SELF, AND RETURN FALSE
       pubBoard[row][col] = -1;
-      //updateBoard(row,col,step,true);
       return false;
     }
+  }
+
+
+
+  private boolean isAValidEmptySpace(int r,int c){
+    return  r >= 0 && r < pubBoard.length && //row within valid space
+            c >= 0 && c < pubBoard[r].length && //col within valid space
+            pubBoard[r][c] == -1;//space not already filled
   }
 
   public int countSolutions(int startingRow,int startingCol){
