@@ -79,8 +79,8 @@ public class KnightBoard{
       //resetBoard();
       return true;
     }else{
-      board[r][c].fill(step);
-      for(Space nextSpace : board[r][c].getNextMoves()){
+      s.fill(step);
+      for(Space nextSpace : s.getNextMoves()){
         if(solver(nextSpace,step+1)) return true;
       }
       //IF NOT RETURNS TRUE, REMOVE SELF, AND RETURN FALSE
@@ -99,11 +99,11 @@ public class KnightBoard{
 
   public int countSolutions(int startingRow,int startingCol){
     if(startingRow < 0 || startingCol < 0 ||
-       startingRow >= pubBoard.length || startingCol >= pubBoard[0].length)
+       startingRow >= board.length || startingCol >= board[0].length)
        throw new IllegalArgumentException("row/col out of bounds");
-    return counter(startingRow,startingCol,0);
+    return counter(board[startingRow][startingCol],0);
   }
-  private int counter(int row,int col, int step){
+  private int counter(Space s, int step){
     //System.out.println(Text.go(10,0)+toString());
     if(step == stepsNecessary){
       //base case: bottom of tree, one(1) successful branch
@@ -111,19 +111,14 @@ public class KnightBoard{
     }else{
       //recursive case
       //add step to board, initiate sum variable
-      pubBoard[row][col] = step;
+      s.fill(step);
       int out = 0;
       //cycle through possible moves, add total successes
-      for(int[] move : moveStatic){
-        int rowTry = move[0]+row;
-        int colTry = move[1]+col;
-        if(isAValidEmptySpace(rowTry,colTry)){
-          //when a valid space is found, recurses down
-          out += counter(rowTry,colTry,step+1);
-        }
+      for(Space nextS : s.getNextMoves()){
+        out += counter(nextS,step+1);
       }
       //remove step from board, return total of tree branch
-      pubBoard[row][col] = -1;
+      s.empty();
       return out;
     }
   }
