@@ -12,6 +12,8 @@ public class KnightBoard{
     {1,2}
   };
 
+  private Space[][] board;
+
   public static void main(String[] args){
     KnightBoard kb = null;
     int r,c;
@@ -39,6 +41,12 @@ public class KnightBoard{
     for(int i=0;i<pubBoard.length;i++){
       for(int j=0;j<pubBoard[i].length;j++){
         pubBoard[i][j] = -1;
+      }
+    }
+    //INITIATE SPACES
+    for(int i=0;i<board.length;i++){
+      for(int j=0;j<board[i].length;j++){
+        board[i][j] = new Space(board,i,j);
       }
     }
     stepsNecessary = startingRows*startingCols - 1;
