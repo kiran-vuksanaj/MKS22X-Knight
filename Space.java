@@ -42,11 +42,25 @@ public class Space implements Comparable<Space>{
   }
 
   public void fill(int step){
-
+    this.step = step;
+    for(int[] move : moveStatic){
+      int r = move[0]+row;
+      int c = move[1]+col;
+      if(isAValidSpace(r,c)){
+        boardSpace[r][c].modifyAvailableSteps(-1);
+      }
+    }
   }
 
   public void empty(){
-
+    step = -1;
+    for(int[] move : moveStatic){
+      int r = move[0]+row;
+      int c = move[1]+col;
+      if(isAValidSpace(r,c)){
+        boardSpace[r][c].modifyAvailableSteps(1);
+      }
+    }
   }
 
   public Space[] getNextMoves(){
@@ -55,6 +69,10 @@ public class Space implements Comparable<Space>{
 
   public int getAvailableSteps(){
     return availSteps;
+  }
+
+  public void modifyAvailableSteps(int delta){
+    availSteps += delta;
   }
 
   public int compareTo(Space other){
