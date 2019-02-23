@@ -1,17 +1,5 @@
 public class KnightBoard{
-  private int[][] pubBoard;
   private int stepsNecessary;
-  private static int[][] moveStatic = {
-    {-1,2},
-    {-2,1},
-    {-2,-1},
-    {-1,-2},
-    {1,-2},
-    {2,-1},
-    {2,1},
-    {1,2}
-  };
-
   private Space[][] board;
 
   public static void main(String[] args){
@@ -36,13 +24,6 @@ public class KnightBoard{
 
   public KnightBoard(int startingRows,int startingCols){
     if(startingRows <= 0 || startingCols <= 0) throw new IllegalArgumentException("negative row/col");
-    pubBoard = new int[startingRows][startingCols];
-    //FILL WITH -1, DEFAULT VALUE
-    for(int i=0;i<pubBoard.length;i++){
-      for(int j=0;j<pubBoard[i].length;j++){
-        pubBoard[i][j] = -1;
-      }
-    }
     //INITIATE SPACES
     board = new Space[startingRows][startingCols];
     for(int i=0;i<board.length;i++){
@@ -89,13 +70,6 @@ public class KnightBoard{
     }
   }
 
-
-
-  private boolean isAValidEmptySpace(int r,int c){
-    return  r >= 0 && r < pubBoard.length && //row within valid space
-            c >= 0 && c < pubBoard[r].length && //col within valid space
-            pubBoard[r][c] == -1;//space not already filled
-  }
 
   public int countSolutions(int startingRow,int startingCol){
     if(startingRow < 0 || startingCol < 0 ||
