@@ -13,10 +13,23 @@ public class KnightBoard{
   };
 
   public static void main(String[] args){
-    KnightBoard kb = new KnightBoard(5,5);
-    System.out.println(kb.countSolutions(2,0));
-    System.out.println(kb.solve(2,0));
-    System.out.println(kb.toString());
+    KnightBoard kb = null;
+    int r,c;
+    if(args.length >= 2){
+      kb = new KnightBoard(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
+    }else{
+      kb = new KnightBoard(5,5);
+    }
+    if(args.length >= 4){
+      r = Integer.parseInt(args[2]);
+      c = Integer.parseInt(args[3]);
+    }else{
+      r=0;
+      c=0;
+    }
+    System.out.println(kb.countSolutions(r,c));
+    System.out.println(kb.solve(r,c));
+    System.out.println(kb);
   }
 
   public KnightBoard(int startingRows,int startingCols){
