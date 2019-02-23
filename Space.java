@@ -24,7 +24,7 @@ public class Space implements Comparable<Space>{
   }
 
   public boolean isFree(){
-    return false;
+    return step == -1;
   }
 
   public void fill(int step){
@@ -40,7 +40,7 @@ public class Space implements Comparable<Space>{
   }
 
   public int getAvailableSteps(){
-    return -1;
+    return availSteps;
   }
 
   public int compareTo(Space other){
