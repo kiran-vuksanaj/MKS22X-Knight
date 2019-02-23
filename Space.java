@@ -14,7 +14,9 @@ public class Space implements Comparable<Space>{
   }
 
   public String toString(){
-    return "";
+    if(step==-1) return "   ";
+    else if(step<9) return " "+(step+1)+" ";
+    else return (step+1)+" ";
   }
 
   public int checkAvailable(){
@@ -25,7 +27,7 @@ public class Space implements Comparable<Space>{
     return false;
   }
 
-  public void fill(){
+  public void fill(int step){
 
   }
 
