@@ -17,7 +17,7 @@ public class KnightBoard{
       r=0;
       c=0;
     }
-    System.out.println(kb.countSolutions(r,c));
+    //System.out.println(kb.countSolutions(r,c));
     System.out.println(kb.solve(r,c));
     System.out.println(kb);
   }
