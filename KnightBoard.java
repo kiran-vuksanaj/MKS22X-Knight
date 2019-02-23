@@ -44,6 +44,7 @@ public class KnightBoard{
       }
     }
     //INITIATE SPACES
+    board = new Space[startingRows][startingCols];
     for(int i=0;i<board.length;i++){
       for(int j=0;j<board[i].length;j++){
         board[i][j] = new Space(board,i,j);
@@ -66,30 +67,24 @@ public class KnightBoard{
   public boolean solve(int startingRow,int startingCol){
     //startBoard();
     if(startingRow < 0 || startingCol < 0 ||
-       startingRow >= pubBoard.length || startingCol >= pubBoard[0].length)
+       startingRow >= board.length || startingCol >= board[0].length)
        throw new IllegalArgumentException("row/col out of bounds");
-    return solver(startingRow,startingCol,0);
+    return solver(board[startingRow][startingCol],0);
   }
-  private boolean solver(int row,int col,int step){
+  private boolean solver(Space s,int step){
     //System.out.println(Text.go(0,0)+toString());
     if(step == stepsNecessary){
       //BASE CASE; BOARD IS FULL, SUCCESSFUL SOLVE
-      pubBoard[row][col] = step;
+      s.fill(step);
       //resetBoard();
       return true;
     }else{
-      pubBoard[row][col] = step;
-      for(int i=0;i<moveStatic.length;i++){
-        int rowTry = row + moveStatic[i][0];
-        int colTry = col + moveStatic[i][1];
-        if(isAValidEmptySpace(rowTry,colTry) && solver(rowTry,colTry,step+1)){
-          //recursion down, this if statement succeeds when space is valid, empty, and successfully solves
-          //circuit break using && so solver only runs on valid spaces
-          return true;
-        }
+      board[r][c].fill(step);
+      for(Space nextSpace : board[r][c].getNextMoves()){
+        if(solver(nextSpace,step+1)) return true;
       }
       //IF NOT RETURNS TRUE, REMOVE SELF, AND RETURN FALSE
-      pubBoard[row][col] = -1;
+      s.empty();
       return false;
     }
   }
