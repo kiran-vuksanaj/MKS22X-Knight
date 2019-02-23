@@ -102,6 +102,13 @@ public class KnightBoard{
       pubBoard[row][col] = step;
       int out = 0;
       //cycle through possible moves, add total successes
+      for(int[] move : moveStatic){
+        int rowTry = move[0]+row;
+        int colTry = move[1]+col;
+        if(isAValidEmptySpace(rowTry,colTry)){
+          out += counter(rowTry,colTry,step+1);
+        }
+      }
       //remove step from board, return total of tree branch
       pubBoard[row][col] = -1;
       return out;
