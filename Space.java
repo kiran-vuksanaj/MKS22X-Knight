@@ -4,13 +4,23 @@ public class Space implements Comparable<Space>{
   private Space[][] boardSpace;
   private int row;
   private int col;
+  private static int[][] moveStatic = {
+    {-1,2},
+    {-2,1},
+    {-2,-1},
+    {-1,-2},
+    {1,-2},
+    {2,-1},
+    {2,1},
+    {1,2}
+  };
 
   public Space(Space[][] board,int row,int col){
     boardSpace = board;
     this.row = row;
     this.col = col;
     step = -1;
-    availSteps = checkAvailable();
+    availSteps = checkAvailableInit();
   }
 
   public String toString(){
@@ -19,8 +29,12 @@ public class Space implements Comparable<Space>{
     else return (step+1)+" ";
   }
 
-  public int checkAvailable(){
-    return -1;
+  private int checkAvailableInit(){//only use at start!!!
+    int out = 0;
+    for(int[] move : moveStatic){
+      if(isAValidSpace(move[0]+row,move[1]+col)) out++;
+    }
+    return out;
   }
 
   public boolean isFree(){
