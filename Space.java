@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class Space implements Comparable<Space>{
   private int step;
   private int availSteps;
@@ -73,7 +74,7 @@ public class Space implements Comparable<Space>{
         out[i++] = boardSpace[r][c];
       }
     }
-    if(i != out.length) throw new RuntimeException("incomplete list/inaccurate count");
+    Arrays.sort(out);
     return out;
   }
 
