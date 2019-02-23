@@ -6,7 +6,11 @@ public class Space implements Comparable<Space>{
   private int col;
 
   public Space(Space[][] board,int row,int col){
-
+    boardSpace = board;
+    this.row = row;
+    this.col = col;
+    step = -1;
+    availSteps = checkAvailable();
   }
 
   public String toString(){
