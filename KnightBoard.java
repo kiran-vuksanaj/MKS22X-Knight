@@ -14,7 +14,8 @@ public class KnightBoard{
 
   public static void main(String[] args){
     KnightBoard kb = new KnightBoard(5,5);
-    System.out.println(kb.solve(0,0));
+    System.out.println(kb.countSolutions(2,0));
+    System.out.println(kb.solve(2,0));
     System.out.println(kb.toString());
   }
 
@@ -36,7 +37,7 @@ public class KnightBoard{
       for(int cell : row){
         if(cell==-1){//will only be used during testing;
           out += "   ";
-        }else if(cell<10){
+        }else if(cell<9){
           out += " "+(cell+1)+" ";
         }else{
           out += (cell+1)+" ";
@@ -90,9 +91,10 @@ public class KnightBoard{
     if(startingRow < 0 || startingCol < 0 ||
        startingRow >= pubBoard.length || startingCol >= pubBoard[0].length)
        throw new IllegalArgumentException("row/col out of bounds");
-    return -1;
+    return counter(startingRow,startingCol,0);
   }
   private int counter(int row,int col, int step){
+    //System.out.println(Text.go(10,0)+toString());
     if(step == stepsNecessary){
       //base case: bottom of tree, one(1) successful branch
       return 1;
