@@ -64,7 +64,17 @@ public class Space implements Comparable<Space>{
   }
 
   public Space[] getNextMoves(){
-    return null;
+    Space[] out = new Space[availSteps];
+    int i=0;
+    for(int[] move : moveStatic){
+      int r = row+move[0];
+      int c = col+move[1];
+      if(isAValidSpace(r,c) && boardSpace[r][c].isFree()){
+        out[i++] = boardSpace[r][c];
+      }
+    }
+    if(i != out.length) throw new RuntimeException("incomplete list/inaccurate count");
+    return out;
   }
 
   public int getAvailableSteps(){
