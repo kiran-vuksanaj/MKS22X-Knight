@@ -44,6 +44,14 @@ public class Space implements Comparable<Space>{
   }
 
   public int compareTo(Space other){
-    return -1;
+    //allows sorting to put spaces in order
+    //NON-FREE spaces placed at the end
+    //FREE spaces with least available steps first
+    if(!(isFree())){
+      if(other.isFree()) return 0;
+      else return 1;
+    }else{
+      return getAvailableSteps() - other.getAvailableSteps();
+    }
   }
 }
