@@ -62,7 +62,7 @@ public class KnightBoard{
   }
 
   public boolean solve(int startingRow,int startingCol){
-    //showBoard();
+    //startBoard();
     if(startingRow < 0 || startingCol < 0 ||
        startingRow >= pubBoard.length || startingCol >= pubBoard[0].length)
        throw new IllegalArgumentException("row/col out of bounds");
@@ -121,6 +121,7 @@ public class KnightBoard{
         int rowTry = move[0]+row;
         int colTry = move[1]+col;
         if(isAValidEmptySpace(rowTry,colTry)){
+          //when a valid space is found, recurses down
           out += counter(rowTry,colTry,step+1);
         }
       }
@@ -130,7 +131,8 @@ public class KnightBoard{
     }
   }
 
-  private void showBoard(){//only use when empty
+  //only for testing purposes, allows continuous display of board in one position
+  private void startBoard(){//only use when empty
     System.out.println(Text.CLEAR_SCREEN);
     System.out.println(Text.HIDE_CURSOR);
   }
