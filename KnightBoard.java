@@ -92,6 +92,21 @@ public class KnightBoard{
        throw new IllegalArgumentException("row/col out of bounds");
     return -1;
   }
+  private int counter(int row,int col, int step){
+    if(step == stepsNecessary){
+      //base case: bottom of tree, one(1) successful branch
+      return 1;
+    }else{
+      //recursive case
+      //add step to board, initiate sum variable
+      pubBoard[row][col] = step;
+      int out = 0;
+      //cycle through possible moves, add total successes
+      //remove step from board, return total of tree branch
+      pubBoard[row][col] = -1;
+      return out;
+    }
+  }
 
   private void showBoard(){//only use when empty
     System.out.println(Text.CLEAR_SCREEN);
