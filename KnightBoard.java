@@ -54,15 +54,9 @@ public class KnightBoard{
 
   public String toString(){
     String out = "";
-    for(int[] row : pubBoard){
-      for(int cell : row){
-        if(cell==-1){//will only be used during testing;
-          out += "   ";
-        }else if(cell<9){
-          out += " "+(cell+1)+" ";
-        }else{
-          out += (cell+1)+" ";
-        }
+    for(Space[] row : board){
+      for(Space cell : row){
+        out += cell;
       }
       out += "\n";
     }
