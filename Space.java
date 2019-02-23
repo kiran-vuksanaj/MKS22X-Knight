@@ -54,4 +54,10 @@ public class Space implements Comparable<Space>{
       return getAvailableSteps() - other.getAvailableSteps();
     }
   }
+
+  private boolean isAValidSpace(int r,int c){
+    return  r >= 0 && r < boardSpace.length && //row within valid space
+            c >= 0 && c < boardSpace[r].length; //col within valid space
+  }
+
 }
